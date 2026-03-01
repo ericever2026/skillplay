@@ -19,7 +19,7 @@ export interface SkillConfig {
 }
 
 export interface LLMConfig {
-  provider: 'openai' | 'ollama' | 'custom';
+  provider: 'openai' | 'ollama' | 'deepseek' | 'zhipu' | 'qwen' | 'kimi' | 'doubao' | 'wenxin' | 'spark' | 'custom';
   model: string;
   apiKey?: string;
   baseUrl?: string;

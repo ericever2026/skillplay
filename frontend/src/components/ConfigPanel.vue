@@ -92,10 +92,25 @@
             </div>
             <div class="form-item">
               <label>{{ t('config.provider') }}</label>
-              <select v-model="editingModel.provider">
-                <option value="openai">OpenAI</option>
-                <option value="ollama">Ollama</option>
-                <option value="custom">Custom</option>
+              <select v-model="editingModel.provider" @change="onProviderChange">
+                <optgroup label="国际模型">
+                  <option value="openai">OpenAI</option>
+                </optgroup>
+                <optgroup label="国内模型">
+                  <option value="deepseek">DeepSeek (深度求索)</option>
+                  <option value="zhipu">智谱 AI (GLM)</option>
+                  <option value="qwen">通义千问 (阿里云)</option>
+                  <option value="kimi">Kimi (月之暗面)</option>
+                  <option value="doubao">豆包 (字节跳动)</option>
+                  <option value="wenxin">文心一言 (百度)</option>
+                  <option value="spark">讯飞星火</option>
+                </optgroup>
+                <optgroup label="本地模型">
+                  <option value="ollama">Ollama</option>
+                </optgroup>
+                <optgroup label="其他">
+                  <option value="custom">Custom (自定义)</option>
+                </optgroup>
               </select>
             </div>
             <div class="form-item">
@@ -162,6 +177,19 @@ interface ModelConfig {
   isDefault: boolean
 }
 
+const PROVIDER_DEFAULTS: Record<string, { baseUrl: string; model: string }> = {
+  openai: { baseUrl: 'https://api.openai.com/v1', model: 'gpt-3.5-turbo' },
+  deepseek: { baseUrl: 'https://api.deepseek.com', model: 'deepseek-chat' },
+  zhipu: { baseUrl: 'https://open.bigmodel.cn/api/paas/v4', model: 'glm-4' },
+  qwen: { baseUrl: 'https://dashscope.aliyuncs.com/compatible-mode/v1', model: 'qwen-turbo' },
+  kimi: { baseUrl: 'https://api.moonshot.cn/v1', model: 'moonshot-v1-8k' },
+  doubao: { baseUrl: 'https://ark.cn-beijing.volces.com/api/v3', model: 'doubao-pro-4k' },
+  wenxin: { baseUrl: 'https://aip.baidubce.com/rpc/2.0/ai_custom/v1/wenxinworkshop/chat', model: 'ernie-bot-4' },
+  spark: { baseUrl: 'https://spark-api-open.xf-yun.com/v1', model: 'generalv3.5' },
+  ollama: { baseUrl: 'http://localhost:11434', model: 'llama2' },
+  custom: { baseUrl: '', model: '' }
+}
+
 const props = defineProps<{
   isVisible: boolean
 }>()
@@ -218,6 +246,14 @@ function loadConfig() {
 function changeLanguage() {
   localStorage.setItem('language', currentLanguage.value)
   locale.value = currentLanguage.value
+}
+
+function onProviderChange() {
+  const defaults = PROVIDER_DEFAULTS[editingModel.value.provider]
+  if (defaults) {
+    editingModel.value.baseUrl = defaults.baseUrl
+    editingModel.value.model = defaults.model
+  }
 }
 
 function setDefaultModel(index: number) {

@@ -1,19 +1,19 @@
 {
   "llm": {
-    "provider": "DeepSeek",
+    "provider": "deepseek",
     "model": "deepseek-chat",
     "apiKey": "sk-a8e758f1f3ee4b38805c22505ecfa873",
-    "baseUrl": "你的DeepSeek API Key",
+    "baseUrl": "https://api.deepseek.com",
     "temperature": 0.7,
     "maxTokens": 2048
   },
   "models": [
     {
       "name": "DeepSeek",
-      "provider": "DeepSeek",
+      "provider": "deepseek",
       "model": "deepseek-chat",
       "baseUrl": "https://api.deepseek.com",
-      "apiKey": "你的DeepSeek API Key",
+      "apiKey": "sk-a8e758f1f3ee4b38805c22505ecfa873",
       "temperature": 0.7,
       "maxTokens": 2048,
       "isDefault": true
