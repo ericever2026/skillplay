@@ -1,0 +1,14 @@
+{
+  "name": "skill-agent-system",
+  "version": "1.0.0",
+  "description": "Skill Agent System - 演示Skill检索、加载、运行机制",
+  "scripts": {
+    "install:backend": "cd backend && npm install",
+    "install:frontend": "cd frontend && npm install",
+    "install:all": "npm run install:backend && npm run install:frontend",
+    "dev:backend": "cd backend && npm run dev",
+    "dev:frontend": "cd frontend && npm run dev",
+    "start:backend": "cd backend && npm run start",
+    "build:frontend": "cd frontend && npm run build"
+  }
+}
